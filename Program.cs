@@ -6,11 +6,10 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TaskList { get; set; }
+        public static List<string> TaskList { get; set; } = new List<string>();
 
         static void Main(string[] args)
         {
-            TaskList = new List<string>();
             int menuSelected = 0;
             do
             {
@@ -66,7 +65,7 @@ namespace ToDo
                     {
                         string task = TaskList[indexToRemove];
                         TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
+                        Console.WriteLine($"Tarea {task} eliminada");
                     }
                 }
 
@@ -88,18 +87,20 @@ namespace ToDo
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al agregar la tarea");
+
             }
         }
 
         public static void ShowMenuTaskList()
         {
-            if (TaskList == null || TaskList.Count == 0)
+            if (TaskList?.Count > 0)
             {
-                Console.WriteLine("No hay tareas por realizar");
+                ShowTaskList();
             }
             else
             {
-                ShowTaskList();
+                Console.WriteLine("No hay tareas por realizar");
             }
         }
 
@@ -107,7 +108,7 @@ namespace ToDo
         {
             Console.WriteLine("----------------------------------------");
             var indexTask = 1;
-            TaskList.ForEach(task => Console.WriteLine(indexTask++ + ". " + task));
+            TaskList.ForEach(task => Console.WriteLine($"{indexTask++}. {task}"));
             // for (int i = 0; i < TaskList.Count; i++)
             // {
             //     Console.WriteLine((i + 1) + ". " + TaskList[i]);
